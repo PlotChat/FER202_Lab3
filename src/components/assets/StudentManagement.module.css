@@ -1,11 +1,21 @@
 .form{
     display:flex;
+    margin-top: 0.4rem;
     gap: 0.4rem;
 
     & input{
         height: 2rem;
 
     }
+}
+
+.total{
+    margin-top: 0.4rem;
+}
+
+.action{
+    display: flex;
+    gap: 0.4rem;
 }
 
 table{

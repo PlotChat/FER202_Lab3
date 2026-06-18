@@ -58,11 +58,15 @@ const StudentManagement = () => {
 		dispatch({ type: "UPDATE_STUDENT", payload: { id, name, age, major } });
 	};
 
-	const displayedStudents = useMemo(() => state.filter(
-		(s) =>
-			s.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-			s.major.toLowerCase().includes(filterTerm.toLowerCase()),
-	), [filterTerm, searchTerm, state]);
+	const displayedStudents = useMemo(
+		() =>
+			state.filter(
+				(s) =>
+					s.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+					s.major.toLowerCase().includes(filterTerm.toLowerCase()),
+			),
+		[filterTerm, searchTerm, state],
+	);
 
 	return (
 		<div>
@@ -70,8 +74,8 @@ const StudentManagement = () => {
 			<button onClick={toggleMode}>
 				{isDark ? "Light Mode" : "Dark Mode"}
 			</button>
-			<form onSubmit={addStudent} className={styles.form}>
-				<div>
+			<form onSubmit={addStudent}>
+				<div className={styles.form}>
 					{studentInfo.id && (
 						<input type="hidden" value={studentInfo.id} name="id" />
 					)}
@@ -112,6 +116,8 @@ const StudentManagement = () => {
 					<option value="">All Majors</option>
 					<option value="IT">IT</option>
 					<option value="Business">Business</option>
+					<option value="Software">Software</option>
+					<option value="Science">Science</option>
 				</select>
 			</div>
 
@@ -133,25 +139,29 @@ const StudentManagement = () => {
 							<td>{s.age}</td>
 							<td>{s.major}</td>
 							<td>
-								<button
-									onClick={() =>
-										updateStudent({
-											id: s.id,
-											name: s.name,
-											age: s.age,
-											major: s.major,
-										})
-									}
-								>
-									Edit
-								</button>
-								<button onClick={() => deleteStudent(s.id)}>Delete</button>
+								<div className={styles.action}>
+									<button
+										onClick={() =>
+											updateStudent({
+												id: s.id,
+												name: s.name,
+												age: s.age,
+												major: s.major,
+											})
+										}
+									>
+										Edit
+									</button>
+									<button onClick={() => deleteStudent(s.id)}>Delete</button>
+								</div>
 							</td>
 						</tr>
 					))}
 				</tbody>
 			</table>
-			<h3>Total Students: {displayedStudents.length}</h3>
+			<h3 className={styles.total}>
+				Total Students: {displayedStudents.length}
+			</h3>
 		</div>
 	);
 };
