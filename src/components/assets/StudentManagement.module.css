@@ -1,10 +1,9 @@
 .form{
     display:flex;
     gap: 0.4rem;
-    background-color: red;
 
     & input{
-        height: 1rem;
+        height: 2rem;
 
     }
 }
